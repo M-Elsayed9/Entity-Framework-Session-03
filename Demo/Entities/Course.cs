@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Demo.Entities
 {
-    internal class Department
+    internal class Course
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public ICollection<Employee> Employees { get; set; } = new HashSet<Employee>();
+        public ICollection<StudentCourse> CourseStudents { get; set; } = new HashSet<StudentCourse>();
     }
 }
