@@ -10,27 +10,32 @@ namespace Demo
 
             using AppDbContext context = new AppDbContext();
 
-            var result = context.Employees.FirstOrDefault(e => e.Id == 2);
+            ////Loading of the navigational properties can be done using 3 ways 
+            //1. Explicit Loading
+            //2. Eager Loading
+            //3. Lazy Loading
 
-            Console.WriteLine(result?.Id ?? 0);
-            Console.WriteLine(result?.Name ?? "NA");
-            Console.WriteLine(result?.Salary ?? 0);
-            Console.WriteLine(result?.Address ?? "NA");
-            Console.WriteLine(result?.Department.Name ?? "NA");
+            // Explicit Loading
+
+            //var employee  = context.Employees.FirstOrDefault(e => e.Id == 2);
+            //context.Entry(employee).Reference("Department").Load(); // loading the Department navigational property
+
+            //Console.WriteLine(employee?.Id ?? 0);
+            //Console.WriteLine(employee?.Name ?? "NA");
+            //Console.WriteLine(employee?.Salary ?? 0);
+            //Console.WriteLine(employee?.Address ?? "NA");
+            //Console.WriteLine(employee?.Department.Name ?? "NA");
 
             var department = context.Departments.FirstOrDefault(e => e.Id == 1);
 
-            Console.WriteLine(department?.Name ?? "NA");
+            context.Entry(department).Collection(e => e.Employees).Load(); // loading the Employees navigational property
+
+            Console.WriteLine(department?.Name ?? "NA"); // NA is printed if department is null
 
             foreach (var emp in department.Employees)
             {
                 Console.WriteLine(emp.Name);
             }
-
-            //Loading of the navigational properties can be done using 3 ways 
-            //1. Eager Loading
-            //2. Explicit Loading
-            //3. Lazy Loading
 
         }
     }
