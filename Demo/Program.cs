@@ -1,4 +1,5 @@
 ﻿using Demo.Contexts;
+using Demo.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Demo
@@ -57,6 +58,31 @@ namespace Demo
             //{
             //    Console.WriteLine(emp.Name);
             //}
+            #endregion
+
+            #region Lazy Loading (Implicitly)
+            // 1.  isntalll package Microsoft.EntityFrameworkCore.Proxies
+            // 2. Add the following line in the OnConfiguring method of the DbContext class
+            // optionsBuilder.UseLazyLoadingProxies();
+            // 3. Make All Entities public 
+            // 4. Make the navigational properties public virtual
+
+            var employee = context.Employees.FirstOrDefault(e => e.Id == 2);
+
+            Console.WriteLine(employee?.Id ?? 0);
+            Console.WriteLine(employee?.Name ?? "NA");
+            Console.WriteLine(employee?.Salary ?? 0);
+            Console.WriteLine(employee?.Address ?? "NA");
+            Console.WriteLine(employee?.Department.Name ?? "NA");
+
+            //var department = context.Departments.FirstOrDefault(e => e.Id == 1);
+
+            //Console.WriteLine(department?.Name ?? "NA"); // NA is printed if department is null
+
+            //foreach (var emp in department.Employees)
+            //{
+            //    Console.WriteLine(emp.Name);
+            //} 
             #endregion
 
         }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Demo.Entities
 {
-    internal class Employee
+    public class Employee
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -15,6 +15,6 @@ namespace Demo.Entities
         public decimal Salary { get; set; }
         public string? Address { get; set; }
         public int DepartmentId { get; set; }
-        public Department Department { get; set; }
+        public virtual Department Department { get; set; }
     }
 }

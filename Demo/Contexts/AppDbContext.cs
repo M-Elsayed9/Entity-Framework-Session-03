@@ -25,12 +25,12 @@ namespace Demo.Contexts
             modelBuilder.ApplyConfiguration(new CourseConfiguration());
             modelBuilder.ApplyConfiguration(new StudentCourseConfiguration());
             //modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
-
-            
+  
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            optionsBuilder.UseLazyLoadingProxies();
             optionsBuilder.UseSqlServer("Server=MOHAMED_PC;Database=DemoDb2;Trusted_Connection=True;TrustServerCertificate=True;");
         }
     }
