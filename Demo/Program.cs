@@ -1,4 +1,5 @@
 ﻿using Demo.Contexts;
+using Microsoft.EntityFrameworkCore;
 
 namespace Demo
 {
@@ -15,6 +16,7 @@ namespace Demo
             //2. Eager Loading
             //3. Lazy Loading
 
+            #region Explicit Loading
             // Explicit Loading
 
             //var employee  = context.Employees.FirstOrDefault(e => e.Id == 2);
@@ -26,16 +28,36 @@ namespace Demo
             //Console.WriteLine(employee?.Address ?? "NA");
             //Console.WriteLine(employee?.Department.Name ?? "NA");
 
-            var department = context.Departments.FirstOrDefault(e => e.Id == 1);
+            //var department = context.Departments.FirstOrDefault(e => e.Id == 1);
 
-            context.Entry(department).Collection(e => e.Employees).Load(); // loading the Employees navigational property
+            //context.Entry(department).Collection(e => e.Employees).Load(); // loading the Employees navigational property
 
-            Console.WriteLine(department?.Name ?? "NA"); // NA is printed if department is null
+            //Console.WriteLine(department?.Name ?? "NA"); // NA is printed if department is null
 
-            foreach (var emp in department.Employees)
-            {
-                Console.WriteLine(emp.Name);
-            }
+            //foreach (var emp in department.Employees)
+            //{
+            //    Console.WriteLine(emp.Name);
+            //} 
+            #endregion
+
+            #region Eager Loading
+            //var employee = context.Employees.Include("Department").FirstOrDefault(e => e.Id == 2);
+
+            //Console.WriteLine(employee?.Id ?? 0);
+            //Console.WriteLine(employee?.Name ?? "NA");
+            //Console.WriteLine(employee?.Salary ?? 0);
+            //Console.WriteLine(employee?.Address ?? "NA");
+            //Console.WriteLine(employee?.Department.Name ?? "NA");
+
+            //var department = context.Departments.Include(d => d.Employees).FirstOrDefault(e => e.Id == 1);
+
+            //Console.WriteLine(department?.Name ?? "NA"); // NA is printed if department is null
+
+            //foreach (var emp in department.Employees)
+            //{
+            //    Console.WriteLine(emp.Name);
+            //}
+            #endregion
 
         }
     }
