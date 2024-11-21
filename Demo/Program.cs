@@ -85,6 +85,41 @@ namespace Demo
             //} 
             #endregion
 
+            #region Join Operators
+
+            // inner join 
+            // fluent syntax
+            var result = context.Employees.Join(context.Departments,
+                e => e.DepartmentId,
+                d => d.Id,
+                (E, D) => new
+                {
+                    EmployeeName = E.Name,
+                    EmployeeId = E.Id,
+                    DepartmentId = D.Id,
+                    DepartmentName = D.Name
+                }
+                );
+
+            // query syntax
+            result = from e in context.Employees
+                     join d in context.Departments
+                     on e.DepartmentId equals d.Id
+                     select new
+                     {
+                         EmployeeName = e.Name,
+                         EmployeeId = e.Id,
+                         DepartmentId = d.Id,
+                         DepartmentName = d.Name
+                     };
+
+            foreach (var item in result)
+            {
+                Console.WriteLine(item.EmployeeName + " " + item.DepartmentName);
+            }
+
+            #endregion
+
         }
     }
 }
