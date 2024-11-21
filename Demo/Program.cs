@@ -67,13 +67,13 @@ namespace Demo
             // 3. Make All Entities public 
             // 4. Make the navigational properties public virtual
 
-            var employee = context.Employees.FirstOrDefault(e => e.Id == 2);
+            //var employee = context.Employees.FirstOrDefault(e => e.Id == 2);
 
-            Console.WriteLine(employee?.Id ?? 0);
-            Console.WriteLine(employee?.Name ?? "NA");
-            Console.WriteLine(employee?.Salary ?? 0);
-            Console.WriteLine(employee?.Address ?? "NA");
-            Console.WriteLine(employee?.Department.Name ?? "NA");
+            //Console.WriteLine(employee?.Id ?? 0);
+            //Console.WriteLine(employee?.Name ?? "NA");
+            //Console.WriteLine(employee?.Salary ?? 0);
+            //Console.WriteLine(employee?.Address ?? "NA");
+            //Console.WriteLine(employee?.Department.Name ?? "NA");
 
             //var department = context.Departments.FirstOrDefault(e => e.Id == 1);
 
@@ -89,35 +89,49 @@ namespace Demo
 
             // inner join 
             // fluent syntax
-            var result = context.Employees.Join(context.Departments,
-                e => e.DepartmentId,
-                d => d.Id,
-                (E, D) => new
-                {
-                    EmployeeName = E.Name,
-                    EmployeeId = E.Id,
-                    DepartmentId = D.Id,
-                    DepartmentName = D.Name
-                }
-                );
+            //var result = context.Employees.Join(context.Departments,
+            //    e => e.DepartmentId,
+            //    d => d.Id,
+            //    (E, D) => new
+            //    {
+            //        EmployeeName = E.Name,
+            //        EmployeeId = E.Id,
+            //        DepartmentId = D.Id,
+            //        DepartmentName = D.Name
+            //    }
+            //    );
 
-            // query syntax
-            result = from e in context.Employees
-                     join d in context.Departments
-                     on e.DepartmentId equals d.Id
-                     select new
-                     {
-                         EmployeeName = e.Name,
-                         EmployeeId = e.Id,
-                         DepartmentId = d.Id,
-                         DepartmentName = d.Name
-                     };
+            //// query syntax
+            //result = from e in context.Employees
+            //         join d in context.Departments
+            //         on e.DepartmentId equals d.Id
+            //         select new
+            //         {
+            //             EmployeeName = e.Name,
+            //             EmployeeId = e.Id,
+            //             DepartmentId = d.Id,
+            //             DepartmentName = d.Name
+            //         };
 
-            foreach (var item in result)
-            {
-                Console.WriteLine(item.EmployeeName + " " + item.DepartmentName);
-            }
+            //foreach (var item in result)
+            //{
+            //    Console.WriteLine(item.EmployeeName + " " + item.DepartmentName);
+            //}
 
+            #endregion
+
+            #region Tracking vs No Tracking
+
+            // default is Tracking
+            var employee = context.Employees.AsNoTracking().FirstOrDefault(e => e.Id == 2);
+
+            Console.WriteLine(context.Entry(employee).State); // Unchanged = > Tracked
+
+            employee.Name = "John";
+
+            Console.WriteLine(context.Entry(employee).State); // Modified = > local changes are tracked
+            
+            context.SaveChanges();
             #endregion
 
         }
