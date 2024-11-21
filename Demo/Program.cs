@@ -125,15 +125,33 @@ namespace Demo
             // default is Tracking
             var employee = context.Employees.AsNoTracking().FirstOrDefault(e => e.Id == 2);
 
-            Console.WriteLine(context.Entry(employee).State); // Unchanged = > Tracked
+            //Console.WriteLine(context.Entry(employee).State); // Unchanged = > Tracked
 
-            employee.Name = "John";
+            //employee.Name = "John";
 
-            Console.WriteLine(context.Entry(employee).State); // Modified = > local changes are tracked
-            
-            context.SaveChanges();
+            //Console.WriteLine(context.Entry(employee).State); // Modified = > local changes are tracked
+
+            //context.SaveChanges();
             #endregion
 
+            #region Local VS Remote
+
+            context.Employees.Load(); 
+
+            //context.Employees.Any(); 
+
+            //context.Employees.Any();
+            //context.Employees.Any();
+            //context.Employees.Any();
+            //context.Employees.Any();
+            //context.Employees.Any();
+            //context.Employees.Any();
+            //context.Employees.Any();
+            //context.Employees.Any();
+            //context.Employees.Any();
+
+
+            #endregion
         }
     }
 }
