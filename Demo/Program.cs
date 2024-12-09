@@ -153,7 +153,15 @@ namespace Demo
 
             #endregion
 
+            #region Mapping View
 
+            var result = context.Courses.FromSqlRaw("SELECT * FROM vwEmployee");
+
+            foreach (var item in result)
+            {
+                Console.WriteLine(item.Name);
+            }
+            #endregion
         }
     }
 }
