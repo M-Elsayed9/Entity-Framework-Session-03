@@ -136,7 +136,7 @@ namespace Demo
 
             #region Local VS Remote
 
-            context.Employees.Load(); 
+            //context.Employees.Load(); 
 
             //context.Employees.Any(); 
 
@@ -152,6 +152,8 @@ namespace Demo
 
 
             #endregion
+
+
         }
     }
 }
